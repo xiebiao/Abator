@@ -1,0 +1,1 @@
+INSERT INTO USER (id,user_name) values(2,'bjxieb') ;

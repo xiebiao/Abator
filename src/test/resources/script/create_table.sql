@@ -1,0 +1,1 @@
+CREATE TABLE USER(id INTEGER not null primary key, user_name VARCHAR(20));
