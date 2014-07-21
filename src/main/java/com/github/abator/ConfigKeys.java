@@ -23,5 +23,8 @@ public final class ConfigKeys {
     public static final String DAO_IMPL_EXTENDS  = CONFIG_PREFIX + "dao.impl.extends";
     public static final String DAO_IMPL_SUFFIX   = CONFIG_PREFIX + "dao.impl.suffix";
     public static final String SQL_MAPPER_SUFFIX = CONFIG_PREFIX + "sql.mapper.suffix";
+    /**
+     * 指定处理表
+     */
     public static final String HANDLE_TABLES     = CONFIG_PREFIX + "tables";
 }

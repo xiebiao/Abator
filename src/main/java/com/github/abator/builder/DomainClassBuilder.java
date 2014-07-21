@@ -58,7 +58,7 @@ public class DomainClassBuilder extends ClassBuilder {
             e.printStackTrace();
         }
 
-        return modelClassName;
+        return this.config.getProperty(ConfigKeys.DOMAIN_PACKAGE) + "." + modelClassName;
     }
 
     public void buildStructure() throws Exception {

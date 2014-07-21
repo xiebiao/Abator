@@ -55,9 +55,11 @@ public final class Config extends Properties {
             config = new Config();
         }
         String c = config.toString();
-        System.out.println("#-----------------------------------------");
-        System.out.println((c.replace("{", "\n").replace("}", "\n").replaceAll(",", "\n")));
-        System.out.println("#-----------------------------------------");
+        LOG.info("#-----------------------------------------");
+        for (Object key : config.keySet()) {
+            LOG.info(key + " = " + config.get(key));
+        }
+        LOG.info("#-----------------------------------------");
         return config;
     }
 
@@ -117,6 +119,10 @@ public final class Config extends Properties {
         Connection connection = this.getConnection();
         String sql = "SELECT * FROM TABLES WHERE TABLE_SCHEMA=?";
         List<Table> tables = null;
+        String tablesStr = config.getProperty(ConfigKeys.HANDLE_TABLES);
+        String[] tablesArr = StringUtils.split(tablesStr, ",");
+        Set<String> configTables = new HashSet<String>();
+        Collections.addAll(configTables, tablesArr);
         try {
             PreparedStatement preparedStatement = connection.prepareStatement(sql);
             preparedStatement.setString(1, this.getProperty(ConfigKeys.DB_NAME));
@@ -124,7 +130,10 @@ public final class Config extends Properties {
             tables = new ArrayList<Table>();
             while (rs.next()) {
                 String tableName = rs.getString("TABLE_NAME").trim();
-                Table table = null;
+                if (!configTables.contains(tableName)) {
+                    continue;
+                }
+                Table table;
                 try {
                     table = new Table(tableName);
                 } catch (Exception e) {

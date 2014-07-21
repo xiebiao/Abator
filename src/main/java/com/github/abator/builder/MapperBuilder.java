@@ -12,11 +12,6 @@ import com.github.abator.utils.Utils;
 
 /**
  * 生成mybatis-3的mapper文件
- * 
- * <pre>
- *  sqlmapper中所有分页参数与 {@link  com.github.mybatis.domain.BaseDomain#getStart_()},
- *  {@link  com.github.mybatis.domain.BaseDomain#getRow_()}
- * </pre>
  * @author xiebiao[谢彪]
  */
 public class MapperBuilder {
@@ -59,7 +54,7 @@ public class MapperBuilder {
     public String buildDtd() {
         sb.append("<!DOCTYPE mapper PUBLIC \"-//mybatis.org//DTD Mapper 3.0//EN \"\n\"http://mybatis.org/dtd/mybatis-3-mapper.dtd\">");
         sb.append("\n");
-        sb.append("<!-- " + Utils.getSignature() + " -->\n");
+        sb.append("<!-- ").append(Utils.getSignature()).append(" -->\n");
         return sb.toString();
     }
 
@@ -68,9 +63,9 @@ public class MapperBuilder {
      */
     public String buildTableName() {
         sb.append(tab);
-        sb.append("<sql id=\"table_name\">" + table.getName() + "</sql>");
+        sb.append("<sql id=\"table_name\">").append(table.getName()).append("</sql>");
         sb.append("\n");
-        this.buildDataPage();
+        this.buildPaging();
         return sb.toString();
     }
 
@@ -79,88 +74,93 @@ public class MapperBuilder {
      */
     private void buildDefaultResultMap() throws Exception {
         sb.append(tab);
-        sb.append("<resultMap  id=\"" + domain + "ResultMap\"  type=\"" + domain + "\">\n");
+        sb.append("<resultMap  id=\"").append("ResultMap\"  type=\"").append(domain).append("\">\n");
         for (Column column : table.getColumns()) {
-            System.out.println(column.getDataType());
             if (DataType2Java.dataTypeMap.get(column.getDataType()).equals("byte[]")) {
-                sb.append(tab + tab + tab + "<result property=\"" + Utils.getCamelName(column.getName())
-                        + "\"  column= \"" + column.getName()
-                        + "\" typeHandler=\"org.apache.ibatis.type.ByteArrayTypeHandler\"/>\n");
+                sb.append(tab).append(tab).append(tab).append("<result property=\"").append(
+                        Utils.getCamelName(column.getName())).append("\"  column= \"").append(column.getName()).append(
+                        "\" typeHandler=\"org.apache.ibatis.type.ByteArrayTypeHandler\"/>\n");
             } else {
-                sb.append(tab + tab + tab + "<result property=\"" + Utils.getCamelName(column.getName())
-                        + "\"  column= \"" + column.getName() + "\"/>\n");
+                sb.append(tab).append(tab).append(tab).append("<result property=\"").append(
+                        Utils.getCamelName(column.getName())).append("\"  column= \"").append(column.getName()).append(
+                        "\"/>\n");
             }
         }
-        sb.append(tab + "</resultMap>\n");
+        sb.append(tab).append("</resultMap>\n");
     }
 
     /**
      * 
      */
     private void buildWhereCondition() throws Exception {
+        sb.append(tab).append(tab).append("<where>\n");
         for (Column column : table.getColumns()) {
             if (DataType2Java.dataTypeMap.get(column.getDataType()).equals("int")) {
-                sb.append(tab + tab + tab + "<if test=\"" + Utils.getCamelName(column.getName()) + "  != null  and  "
-                        + Utils.getCamelName(column.getName()) + " != 0 \">\n");
+                sb.append(tab).append(tab).append(tab).append("<if test=\"").append(
+                        Utils.getCamelName(column.getName())).append("  != null  and  ").append(
+                        Utils.getCamelName(column.getName())).append(" != 0 \">\n");
             } else {
-                sb.append(tab + tab + tab + "<if test=\"" + Utils.getCamelName(column.getName()) + " != null\">\n");
+                sb.append(tab).append(tab).append(tab).append("<if test=\"").append(
+                        Utils.getCamelName(column.getName())).append(" != null\">\n");
             }
-            sb.append(tab + tab + tab + tab + "  and " + column.getName() + "=#{"
-                    + Utils.getCamelName(column.getName()) + "}\n");
-            sb.append(tab + tab + tab + "</if>\n");
+            sb.append(tab).append(tab).append(tab).append(tab).append("  and ").append(column.getName()).append("=#{")
+                    .append(Utils.getCamelName(column.getName())).append("}\n");
+            sb.append(tab).append(tab).append(tab).append("</if>\n");
         }
+        sb.append(tab).append(tab).append("</where>\n");
     }
 
     private void buildSetCondition() throws Exception {
-        sb.append(tab + tab + tab + "<set>\n");
+        sb.append(tab).append(tab).append("<set>\n");
         for (Column column : table.getColumns()) {
             if (column.isPrimaryKey()) continue;
             if (DataType2Java.dataTypeMap.get(column.getDataType()).equals("int")) {
-                sb.append(tab + tab + tab + "<if test=\"" + Utils.getCamelName(column.getName()) + "  != null  and  "
-                        + Utils.getCamelName(column.getName()) + " != 0 \">\n");
+                sb.append(tab).append(tab).append(tab).append("<if test=\"").append(
+                        Utils.getCamelName(column.getName())).append("  != null  and  ").append(
+                        Utils.getCamelName(column.getName())).append(" != 0 \">\n");
             } else {
-                sb.append(tab + tab + tab + "<if test=\"" + Utils.getCamelName(column.getName()) + " != null\">\n");
+                sb.append(tab).append(tab).append(tab).append("<if test=\"").append(
+                        Utils.getCamelName(column.getName())).append(" != null\">\n");
             }
-            sb.append(tab + tab + tab + tab + "  " + column.getName() + "=#{" + Utils.getCamelName(column.getName())
-                    + "},\n");
-            sb.append(tab + tab + tab + "</if>\n");
+            sb.append(tab).append(tab).append(tab).append(tab).append("  ").append(column.getName()).append("=#{")
+                    .append(Utils.getCamelName(column.getName())).append("},\n");
+            sb.append(tab).append(tab).append(tab).append("</if>\n");
         }
-        sb.append(tab + tab + tab + "</set>\n");
+        sb.append(tab).append(tab).append("</set>\n");
     }
 
     private void buildCondition() throws Exception {
         sb.append(tab);
         sb.append("<sql id=\"condition\">\n");
-        sb.append(tab + tab + "<where>\n");
         buildWhereCondition();
-        sb.append(tab + tab + "</where>\n");
-        sb.append(tab + "</sql>\n");
+        sb.append(tab).append("</sql>\n");
     }
 
     private void buildCount() {
-        sb.append(tab + "<select id=\"count\" resultType=\"int\" parameterType=\"" + domain + "\">\n");
-        sb.append(tab + tab + "SELECT count(*) as value FROM \n");
-        sb.append(tab + tab + "<include refid=\"table_name\" />\n");
-        sb.append(tab + tab + "<include refid=\"condition\" />\n");
-        sb.append(tab + "</select>\n");
+        sb.append(tab).append("<select id=\"count\" resultType=\"int\" parameterType=\"").append(domain)
+                .append("\">\n");
+        sb.append(tab).append(tab).append("SELECT count(*) as value FROM \n");
+        sb.append(tab).append(tab).append("<include refid=\"table_name\" />\n");
+        sb.append(tab).append(tab).append("<include refid=\"condition\" />\n");
+        sb.append(tab).append("</select>\n");
     }
 
     private void buildInsert(String tmp) throws Exception {
-        sb.append(tab + "<insert id=\"insert\"> \n");
-        sb.append(tab + tab + "INSERT INTO \n");
-        sb.append(tab + tab + "<include refid=\"table_name\" /> \n");
-        sb.append(tab + tab + "( \n");
+        sb.append(tab).append("<insert id=\"insert\">\n");
+        sb.append(tab).append(tab).append("INSERT INTO \n");
+        sb.append(tab).append(tab).append("<include refid=\"table_name\" />\n");
+        sb.append(tab).append(tab).append("( \n");
         tmp = "";
         for (Column column : table.getColumns()) {
             tmp = tmp + tab + tab;
             tmp = tmp + tab + column.getName() + ",\n";
         }
         tmp = tmp.substring(0, tmp.length() - 2);
-        sb.append(tmp + "\n");
+        sb.append(tmp).append("\n");
 
-        sb.append(tab + tab + ") \n");
-        sb.append(tab + tab + "VALUES \n");
-        sb.append(tab + tab + "( \n");
+        sb.append(tab).append(tab).append(") \n");
+        sb.append(tab).append(tab).append("VALUES \n");
+        sb.append(tab).append(tab).append("( \n");
 
         tmp = "";
         for (Column column : table.getColumns()) {
@@ -168,59 +168,64 @@ public class MapperBuilder {
             tmp = tmp + tab + "#{" + Utils.getCamelName(column.getName()) + "},\n";
         }
         tmp = tmp.substring(0, tmp.length() - 2);
-        sb.append(tmp + "\n");
-        sb.append(tab + tab + ") \n");
-        sb.append(tab + "</insert> \n");
+        sb.append(tmp).append("\n");
+        sb.append(tab).append(tab).append(") \n");
+        sb.append(tab).append("</insert> \n");
     }
 
     private void buildFind() {
 
-        sb.append(tab + "<select id=\"find\" parameterType=\"string\" resultMap=\"" + domain + "ResultMap\">\n");
-        sb.append(tab + tab + "SELECT * FROM \n");
-        sb.append(tab + tab + "<include refid=\"table_name\" /> \n");
-        sb.append(tab + tab + "WHERE " + table.getPriKey() + " = #{" + table.getPriKey() + "} \n");
-        sb.append(tab + "</select>\n");
+        sb.append(tab).append("<select id=\"find\" parameterType=\"string\" resultMap=\"").append("ResultMap\">\n");
+        sb.append(tab).append(tab).append("SELECT * FROM \n");
+        sb.append(tab).append(tab).append("<include refid=\"table_name\" />\n");
+        sb.append(tab).append(tab).append("WHERE ").append(table.getPriKey()).append(" = #{").append(table.getPriKey())
+                .append("} \n");
+        sb.append(tab).append("</select>\n");
     }
 
     private void buildUpdate(String tmp) throws Exception {
-        sb.append(tab + "<update id=\"update\"> \n");
-        sb.append(tab + tab + "UPDATE \n");
-        sb.append(tab + tab + "<include refid=\"table_name\" />\n");
+        sb.append(tab).append("<update id=\"update\">\n");
+        sb.append(tab).append(tab).append("UPDATE \n");
+        sb.append(tab).append(tab).append("<include refid=\"table_name\" />\n");
         buildSetCondition();
-        sb.append(tab + tab + tab + "WHERE " + table.getPriKey() + "=#{" + table.getPriKey() + "} \n");
-
-        sb.append(tab + "</update> \n");
+        sb.append(tab).append(tab).append(tab).append("WHERE ").append(table.getPriKey()).append("=#{").append(
+                table.getPriKey()).append("} \n");
+        sb.append(tab).append("</update> \n");
     }
 
     private void buildDelete(String tmp) {
-        sb.append(tab + "<delete id=\"delete\"> \n");
-        sb.append(tab + tab + "DELETE FROM \n");
-        sb.append(tab + tab + "<include refid=\"table_name\" />\n");
-        sb.append(tab + tab + " WHERE " + table.getPriKey() + "=#{" + table.getPriKey() + "} \n");
+        sb.append(tab).append("<delete id=\"delete\">\n");
+        sb.append(tab).append(tab).append("DELETE FROM \n");
+        sb.append(tab).append(tab).append("<include refid=\"table_name\" />\n");
+        sb.append(tab).append(tab).append(" WHERE ").append(table.getPriKey()).append("=#{").append(table.getPriKey())
+                .append("} \n");
+        sb.append(tab).append("</delete> \n");
+    }
 
-        sb.append(tab + "</delete> \n");
+    private String buildOrderBy() {
+
+        sb.append(tab).append(tab).append("<if test=\"orders != null and orders.size() > 0\">\n");
+        sb.append(tab).append(tab).append("ORDER BY\n");
+        sb.append(tab).append(tab).append(tab).append(
+                "<foreach collection=\"orders\" item=\"item\" index=\"index\" separator=\",\">\n");
+        sb.append(tab).append(tab).append(tab).append(tab).append("${item.fieldName}  ${item.order}\n");
+        sb.append(tab).append(tab).append(tab).append("</foreach>\n");
+        sb.append(tab).append(tab).append("</if>\n");
+        return sb.toString();
     }
 
     /**
      * 查询列表,带有分页参数
      */
     private void buildList() {
-        sb.append(tab + "<select id=\"list\" parameterType=\"" + domain + "\" resultMap=\"" + domain
-                + "ResultMap\"> \n");
-        sb.append(tab + tab + "SELECT * FROM \n");
-        sb.append(tab + tab + "<include refid=\"table_name\" /> \n");
-        sb.append(tab + tab + "<include refid=\"condition\" /> \n");
-        sb.append(tab + tab + "<if test=\"order_ != null\"> \n");
-        sb.append(tab + tab + tab + "order by ${order_} \n");
-        sb.append(tab + tab + "</if> \n");
-
-        sb.append(tab + tab + "<if test=\"sort_ != null\"> \n");
-        sb.append(tab + tab + tab + "${sort_} \n");
-        sb.append(tab + tab + "</if> \n");
-
-        sb.append(tab + tab + "<include refid=\"dataPage\"/>\n");
-
-        sb.append(tab + "</select> \n");
+        sb.append(tab).append("<select id=\"list\" parameterType=\"").append(domain).append("\" resultMap=\"").append(
+                "ResultMap\">\n");
+        sb.append(tab).append(tab).append("SELECT * FROM \n");
+        sb.append(tab).append(tab).append("<include refid=\"table_name\" />\n");
+        sb.append(tab).append(tab).append("<include refid=\"condition\" />\n");
+        buildOrderBy();
+        sb.append(tab).append(tab).append("<include refid=\"paging\"/>\n");
+        sb.append(tab).append("</select> \n");
 
     }
 
@@ -268,10 +273,10 @@ public class MapperBuilder {
      * 生成分页判断
      * @return
      */
-    private String buildDataPage() {
-        sb.append(tab + "<sql id=\"dataPage\"> \n");
-        sb.append(tab + tab + "<if test=\"rows_ != 0\"> \n");
-        sb.append(tab + tab + tab + "LIMIT #{start_},#{rows_} \n");
+    private String buildPaging() {
+        sb.append(tab + "<sql id=\"paging\">\n");
+        sb.append(tab + tab + "<if test=\"paging != null and paging == true \">\n");
+        sb.append(tab + tab + tab + "LIMIT #{offset},#{pageSize} \n");
         sb.append(tab + tab + "</if>\n");
         sb.append(tab + "</sql>\n");
         return sb.toString();
@@ -293,7 +298,7 @@ public class MapperBuilder {
         doBuild();
         String dirPath = config.getOutput() + File.separator + "mapper";
         File dir = new File(dirPath);
-        if (dir.exists() == false) {
+        if (!dir.exists()) {
             dir.mkdirs();
         }
         String suffix = config.getProperty(ConfigKeys.SQL_MAPPER_SUFFIX);
