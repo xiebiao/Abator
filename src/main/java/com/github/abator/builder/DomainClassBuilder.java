@@ -93,7 +93,7 @@ public class DomainClassBuilder extends ClassBuilder {
             return;
         } else {
             for (Column c : table.getColumns()) {
-                String dataType = DataType2Java.dataTypeMap.get(c.getDataType());
+                String dataType = JdbcType2JavaType.dataTypeMap.get(c.getDataType());
                 if (dataType != null && dataType.equals("Date")) {
                     sb.append("import java.util.Date;\n");
                     break;
@@ -134,7 +134,7 @@ public class DomainClassBuilder extends ClassBuilder {
             for (Column c : columns) {
                 LOG.debug("Table name:" + this.table.getName());
                 String name = Utils.getCamelName(Utils.getCamelName(c.getName()));
-                String dataType = DataType2Java.dataTypeMap.get(c.getDataType());
+                String dataType = JdbcType2JavaType.dataTypeMap.get(c.getDataType());
                 if (dataType == null) {
                     LOG.error("Column=" + c.getName() + " has null datatype.");
                     continue;
@@ -159,7 +159,7 @@ public class DomainClassBuilder extends ClassBuilder {
         if (column.getDataType().equals("bit") && column.getPrecision() == 1) {
             return "boolean";
         } else {
-            return DataType2Java.dataTypeMap.get(column.getDataType());
+            return JdbcType2JavaType.dataTypeMap.get(column.getDataType());
         }
     }
 

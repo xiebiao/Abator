@@ -76,7 +76,7 @@ public class MapperBuilder {
         sb.append(tab);
         sb.append("<resultMap  id=\"").append("ResultMap\"  type=\"").append(domain).append("\">\n");
         for (Column column : table.getColumns()) {
-            if (DataType2Java.dataTypeMap.get(column.getDataType()).equals("byte[]")) {
+            if (JdbcType2JavaType.dataTypeMap.get(column.getDataType()).equals("byte[]")) {
                 sb.append(tab).append(tab).append(tab).append("<result property=\"").append(
                         Utils.getCamelName(column.getName())).append("\"  column= \"").append(column.getName()).append(
                         "\" typeHandler=\"org.apache.ibatis.type.ByteArrayTypeHandler\"/>\n");
@@ -95,7 +95,7 @@ public class MapperBuilder {
     private void buildWhereCondition() throws Exception {
         sb.append(tab).append(tab).append("<where>\n");
         for (Column column : table.getColumns()) {
-            if (DataType2Java.dataTypeMap.get(column.getDataType()).equals("int")) {
+            if (JdbcType2JavaType.dataTypeMap.get(column.getDataType()).equals("int")) {
                 sb.append(tab).append(tab).append(tab).append("<if test=\"").append(
                         Utils.getCamelName(column.getName())).append("  != null  and  ").append(
                         Utils.getCamelName(column.getName())).append(" != 0 \">\n");
@@ -114,7 +114,7 @@ public class MapperBuilder {
         sb.append(tab).append(tab).append("<set>\n");
         for (Column column : table.getColumns()) {
             if (column.isPrimaryKey()) continue;
-            if (DataType2Java.dataTypeMap.get(column.getDataType()).equals("int")) {
+            if (JdbcType2JavaType.dataTypeMap.get(column.getDataType()).equals("int")) {
                 sb.append(tab).append(tab).append(tab).append("<if test=\"").append(
                         Utils.getCamelName(column.getName())).append("  != null  and  ").append(
                         Utils.getCamelName(column.getName())).append(" != 0 \">\n");
@@ -274,11 +274,11 @@ public class MapperBuilder {
      * @return
      */
     private String buildPaging() {
-        sb.append(tab + "<sql id=\"paging\">\n");
-        sb.append(tab + tab + "<if test=\"paging != null and paging == true \">\n");
-        sb.append(tab + tab + tab + "LIMIT #{offset},#{pageSize} \n");
-        sb.append(tab + tab + "</if>\n");
-        sb.append(tab + "</sql>\n");
+        sb.append(tab).append("<sql id=\"paging\">\n");
+        sb.append(tab).append(tab).append("<if test=\"paging != null and paging == true \">\n");
+        sb.append(tab).append(tab).append(tab).append("LIMIT #{offset},#{pageSize} \n");
+        sb.append(tab).append(tab).append("</if>\n");
+        sb.append(tab).append("</sql>\n");
         return sb.toString();
     }
 
@@ -302,7 +302,7 @@ public class MapperBuilder {
             dir.mkdirs();
         }
         String suffix = config.getProperty(ConfigKeys.SQL_MAPPER_SUFFIX);
-        String fileName = null;
+        String fileName;
         if (StringUtils.isEmpty(suffix)) {
             fileName = dirPath + File.separator + table.getName() + ".xml";
         } else {

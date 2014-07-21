@@ -3,7 +3,10 @@ package com.github.abator.builder;
 import java.util.HashMap;
 import java.util.Map;
 
-public class DataType2Java {
+/**
+ * @see org.apache.ibatis.type.JdbcType
+ */
+public class JdbcType2JavaType {
 
     public static Map<String, String> dataTypeMap = new HashMap<String, String>();
     static {

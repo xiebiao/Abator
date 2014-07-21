@@ -15,7 +15,7 @@ public class Utils {
      * @return Domain类名称
      */
     public static String getDomainName(String name) throws Exception {
-        if (name.indexOf("-") != -1 && name.indexOf("_") != -1) {
+        if (name.contains("-") && name.contains("_")) {
             name.replaceAll("-", "_");
         }
         String[] t = name.split("_");
