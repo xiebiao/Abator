@@ -6,6 +6,7 @@
     <version>0.0.1-SNAPSHOT</version>
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <guavaVersion>14.0</guavaVersion>
         <findbugs_maven_plugin_version>2.5.1</findbugs_maven_plugin_version>
         <spring_version>3.2.2.RELEASE</spring_version>
         <mybatis_version>3.2.2</mybatis_version>
@@ -64,6 +65,11 @@
             <groupId>mysql</groupId>
             <artifactId>mysql-connector-java</artifactId>
             <version>${mysql_connector_version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.google.guava</groupId>
+            <artifactId>guava</artifactId>
+            <version>${guavaVersion}</version>
         </dependency>
         <!-- Log libs -->
         <dependency>
