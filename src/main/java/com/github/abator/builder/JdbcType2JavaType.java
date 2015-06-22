@@ -19,6 +19,7 @@ public class JdbcType2JavaType {
     dataTypeMap.put("float", "float");/*-3.402823466E+38到-1.175494351E-38*/
     dataTypeMap.put("binary", "byte[]");
     dataTypeMap.put("varbinary", "byte[]");
+    dataTypeMap.put("tinyblob", "byte[]");
     dataTypeMap.put("mediumint", "Integer");
     dataTypeMap.put("smallint", "Integer");
     dataTypeMap.put("tinyint", "Integer");/*-128到127*/
