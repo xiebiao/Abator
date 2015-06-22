@@ -212,11 +212,11 @@ public class MapperBuilder {
 
   private String buildOrderBy() {
 
-    sb.append(tab).append(tab).append("<if test=\"orders != null and orders.size() > 0\">\n");
+    sb.append(tab).append(tab).append("<if test=\"orderByList != null and orderByList.size() > 0\">\n");
     sb.append(tab).append(tab).append("ORDER BY\n");
     sb.append(tab).append(tab).append(tab)
-        .append("<foreach collection=\"orders\" item=\"item\" index=\"index\" separator=\",\">\n");
-    sb.append(tab).append(tab).append(tab).append(tab).append("${item.fieldName}  ${item.order}\n");
+        .append("<foreach collection=\"orderByList\" item=\"item\" index=\"index\" separator=\",\">\n");
+    sb.append(tab).append(tab).append(tab).append(tab).append("${item.name}  ${item.order}\n");
     sb.append(tab).append(tab).append(tab).append("</foreach>\n");
     sb.append(tab).append(tab).append("</if>\n");
     return sb.toString();
