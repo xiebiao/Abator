@@ -5,6 +5,7 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 
+import com.github.abator.Abator;
 import com.github.abator.ConfigKeys;
 import com.github.abator.utils.NameUtils;
 
@@ -68,7 +69,7 @@ public class DaoImplClassBuilder extends DaoClassBuilder {
   protected void buildAnnotate() {
     sb.append("\n");
     sb.append("/**\n");
-    sb.append(" *  " + NameUtils.getSignature() + " \n");
+    sb.append(" *  " + Abator.getSignature() + " \n");
     sb.append(" */");
     sb.append("\n");
   }

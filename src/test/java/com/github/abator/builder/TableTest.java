@@ -3,6 +3,8 @@ package com.github.abator.builder;
 import java.util.HashSet;
 import java.util.Set;
 
+import com.github.abator.database.Column;
+import com.github.abator.database.Table;
 import junit.framework.TestCase;
 
 public class TableTest extends TestCase {

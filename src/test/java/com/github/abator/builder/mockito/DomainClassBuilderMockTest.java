@@ -7,7 +7,7 @@ import org.junit.Test;
 
 import com.github.abator.builder.Config;
 import com.github.abator.builder.DomainClassBuilder;
-import com.github.abator.builder.Table;
+import com.github.abator.database.Table;
 
 public class DomainClassBuilderMockTest {
 

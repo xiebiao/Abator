@@ -1,4 +1,4 @@
-package com.github.abator.builder;
+package com.github.abator.database;
 
 public class Column {
 

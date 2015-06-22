@@ -3,12 +3,12 @@ package com.github.abator.test;
 import java.util.HashSet;
 import java.util.Set;
 
+import com.github.abator.database.Column;
+import com.github.abator.database.Table;
 import org.junit.Test;
 
-import com.github.abator.builder.Column;
 import com.github.abator.builder.Config;
 import com.github.abator.builder.DaoClassBuilder;
-import com.github.abator.builder.Table;
 
 public class DaoClassBuilderTest extends BaseTestCase {
 

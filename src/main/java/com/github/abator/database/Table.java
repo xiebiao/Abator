@@ -1,4 +1,4 @@
-package com.github.abator.builder;
+package com.github.abator.database;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -73,7 +73,7 @@ public class Table {
 
   /**
    * 生成数据库表SQL语句
-   * 
+   *
    * @return
    */
   public String toSql() {

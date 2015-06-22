@@ -11,6 +11,8 @@ import org.apache.commons.lang3.StringUtils;
 
 import com.github.abator.ConfigKeys;
 import com.github.abator.DatabaseType;
+import com.github.abator.database.Column;
+import com.github.abator.database.Table;
 
 /**
  * @author xiebiao

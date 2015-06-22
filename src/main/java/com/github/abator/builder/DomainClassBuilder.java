@@ -8,7 +8,10 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
+import com.github.abator.Abator;
 import com.github.abator.ConfigKeys;
+import com.github.abator.database.Column;
+import com.github.abator.database.Table;
 import com.github.abator.utils.NameUtils;
 
 /**
@@ -41,7 +44,8 @@ public class DomainClassBuilder extends ClassBuilder {
       this.checkDirectory(dirPath);
     }
     String modelClassName =
-        NameUtils.getDomainName(table.getName()) + this.config.getProperty(ConfigKeys.DOMAIN_SUFFIX);
+        NameUtils.getDomainName(table.getName())
+            + this.config.getProperty(ConfigKeys.DOMAIN_SUFFIX);
     String fileName =
         this.config.getOutput() + File.separator + dirPath + File.separator + modelClassName
             + JAVA_FILE_SUFFIX;
@@ -66,10 +70,10 @@ public class DomainClassBuilder extends ClassBuilder {
 
   public void buildStructure() throws Exception {
     sb.append("\n");
-    sb.append(tab + "public "
-        + NameUtils
-            .getDomainName(table.getName() + this.config.getProperty(ConfigKeys.DOMAIN_SUFFIX))
-        + "() {\n");
+    sb.append(tab
+        + "public "
+        + NameUtils.getDomainName(
+            table.getName() + this.config.getProperty(ConfigKeys.DOMAIN_SUFFIX)) + "() {\n");
     sb.append(tab + "}\n");
   }
 
@@ -112,7 +116,7 @@ public class DomainClassBuilder extends ClassBuilder {
     sb.append("\n");
     sb.append("/**\n");
     sb.append(" *  " + table.getComment() + "\n");
-    sb.append(" *  " + NameUtils.getSignature() + " \n");
+    sb.append(" *  " + Abator.getSignature() + " \n");
     sb.append(" */");
     sb.append("\n");
   }

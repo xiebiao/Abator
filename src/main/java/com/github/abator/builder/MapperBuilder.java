@@ -5,9 +5,12 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 
+import com.github.abator.Abator;
+import com.github.abator.database.Column;
 import org.apache.commons.lang3.StringUtils;
 
 import com.github.abator.ConfigKeys;
+import com.github.abator.database.Table;
 import com.github.abator.utils.NameUtils;
 
 /**
@@ -55,7 +58,7 @@ public class MapperBuilder {
   public String buildDtd() {
     sb.append("<!DOCTYPE mapper PUBLIC \"-//mybatis.org//DTD Mapper 3.0//EN \"\n\"http://mybatis.org/dtd/mybatis-3-mapper.dtd\">");
     sb.append("\n");
-    sb.append("<!-- ").append(NameUtils.getSignature()).append(" -->\n");
+    sb.append("<!-- ").append(Abator.getSignature()).append(" -->\n");
     return sb.toString();
   }
 
