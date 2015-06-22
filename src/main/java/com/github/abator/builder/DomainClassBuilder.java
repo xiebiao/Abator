@@ -9,7 +9,7 @@ import java.util.List;
 import java.util.Set;
 
 import com.github.abator.ConfigKeys;
-import com.github.abator.utils.Utils;
+import com.github.abator.utils.NameUtils;
 
 /**
  * 生成表对应的domain
@@ -41,7 +41,7 @@ public class DomainClassBuilder extends ClassBuilder {
       this.checkDirectory(dirPath);
     }
     String modelClassName =
-        Utils.getDomainName(table.getName()) + this.config.getProperty(ConfigKeys.DOMAIN_SUFFIX);
+        NameUtils.getDomainName(table.getName()) + this.config.getProperty(ConfigKeys.DOMAIN_SUFFIX);
     String fileName =
         this.config.getOutput() + File.separator + dirPath + File.separator + modelClassName
             + JAVA_FILE_SUFFIX;
@@ -67,7 +67,8 @@ public class DomainClassBuilder extends ClassBuilder {
   public void buildStructure() throws Exception {
     sb.append("\n");
     sb.append(tab + "public "
-        + Utils.getDomainName(table.getName() + this.config.getProperty(ConfigKeys.DOMAIN_SUFFIX))
+        + NameUtils
+            .getDomainName(table.getName() + this.config.getProperty(ConfigKeys.DOMAIN_SUFFIX))
         + "() {\n");
     sb.append(tab + "}\n");
   }
@@ -111,7 +112,7 @@ public class DomainClassBuilder extends ClassBuilder {
     sb.append("\n");
     sb.append("/**\n");
     sb.append(" *  " + table.getComment() + "\n");
-    sb.append(" *  " + Utils.getSignature() + " \n");
+    sb.append(" *  " + NameUtils.getSignature() + " \n");
     sb.append(" */");
     sb.append("\n");
   }
@@ -120,7 +121,7 @@ public class DomainClassBuilder extends ClassBuilder {
     sb.append("\n");
     String _extends = config.getProperty(ConfigKeys.DOMAIN_EXTENDS);
     String _suffix = config.getProperty(ConfigKeys.DOMAIN_SUFFIX);
-    sb.append("public class " + Utils.getDomainName(table.getName() + _suffix));
+    sb.append("public class " + NameUtils.getDomainName(table.getName() + _suffix));
     if (_extends != null) {
       sb.append(" extends " + _extends);
     }
@@ -137,7 +138,7 @@ public class DomainClassBuilder extends ClassBuilder {
     } else {
       for (Column c : columns) {
         LOG.debug("Table name:" + this.table.getName());
-        String name = Utils.getCamelName(Utils.getCamelName(c.getName()));
+        String name = NameUtils.getCamelName(NameUtils.getCamelName(c.getName()));
         String dataType = JdbcType2JavaType.dataTypeMap.get(c.getDataType());
         if (dataType == null) {
           LOG.error("Column=" + c.getName() + " has null datatype.");
@@ -171,7 +172,7 @@ public class DomainClassBuilder extends ClassBuilder {
     sb.append("\n");
     Set<Column> columns = table.getColumns();
     for (Column c : columns) {
-      String field = Utils.getCamelName(c.getName());
+      String field = NameUtils.getCamelName(c.getName());
       String _field = field;
       if (JavaKeyWord.isJavaKeyWord(field)) {
         _field = "_" + field;

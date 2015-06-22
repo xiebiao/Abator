@@ -26,5 +26,5 @@ public final class ConfigKeys {
   /**
    * 指定处理表
    */
-  public static final String HANDLE_TABLES = CONFIG_PREFIX + "tables";
+  public static final String HANDLE_TABLES = CONFIG_PREFIX + "include.tables";
 }

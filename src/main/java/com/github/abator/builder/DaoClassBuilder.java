@@ -6,7 +6,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 
 import com.github.abator.ConfigKeys;
-import com.github.abator.utils.Utils;
+import com.github.abator.utils.NameUtils;
 
 /**
  * 生成DAO接口
@@ -40,7 +40,7 @@ public class DaoClassBuilder extends ClassBuilder {
       this.checkDirectory(dirPath);
     }
     String modelClassName =
-        Utils.getDomainName(this.name) + this.config.getProperty(ConfigKeys.DAO_SUFFIX);
+        NameUtils.getDomainName(this.name) + this.config.getProperty(ConfigKeys.DAO_SUFFIX);
     String fileName =
         this.config.getOutput() + File.separator + dirPath + File.separator + modelClassName
             + JAVA_FILE_SUFFIX;
@@ -75,7 +75,7 @@ public class DaoClassBuilder extends ClassBuilder {
     sb.append("\n");
     String _suffix = config.getProperty(ConfigKeys.DAO_SUFFIX);
     String _extends = config.getProperty(ConfigKeys.DAO_EXTENDS);
-    sb.append("public interface " + Utils.getDomainName(this.name + _suffix));
+    sb.append("public interface " + NameUtils.getDomainName(this.name + _suffix));
     if (_extends != null) {
       sb.append(" extends " + _extends);
     }
@@ -94,7 +94,7 @@ public class DaoClassBuilder extends ClassBuilder {
   protected void buildAnnotate() {
     sb.append("\n");
     sb.append("/**\n");
-    sb.append(" *  " + Utils.getSignature() + " \n");
+    sb.append(" *  " + NameUtils.getSignature() + " \n");
     sb.append(" */");
     sb.append("\n");
   }

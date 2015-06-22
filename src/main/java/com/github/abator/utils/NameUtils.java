@@ -2,9 +2,9 @@ package com.github.abator.utils;
 
 import java.util.Date;
 
-public class Utils {
+public class NameUtils {
 
-  private static final org.slf4j.Logger LOG = org.slf4j.LoggerFactory.getLogger(Utils.class);
+  private static final org.slf4j.Logger LOG = org.slf4j.LoggerFactory.getLogger(NameUtils.class);
 
   /**
    * Domain类名称
@@ -35,8 +35,8 @@ public class Utils {
   }
 
   public static void main(String[] args) throws Exception {
-    System.out.println(Utils.getDomainName("aaaBaaa"));
-    System.out.println(Utils.getDomainName("aa_a"));
+    System.out.println(NameUtils.getDomainName("aaaBaaa"));
+    System.out.println(NameUtils.getDomainName("aa_a"));
   }
 
   public static String getSignature() {

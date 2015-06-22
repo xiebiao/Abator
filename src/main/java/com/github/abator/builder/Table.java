@@ -3,7 +3,7 @@ package com.github.abator.builder;
 import java.util.HashSet;
 import java.util.Set;
 
-import com.github.abator.utils.Utils;
+import com.github.abator.utils.NameUtils;
 
 /**
  * @author xiebiao
@@ -23,7 +23,7 @@ public class Table {
     comment = "";
     columns = new HashSet<Column>();
     this.name = tableName;
-    this.alias = Utils.getDomainName(tableName);
+    this.alias = NameUtils.getDomainName(tableName);
   }
 
   public void addColumn(Column column) {

@@ -8,7 +8,7 @@ import java.io.IOException;
 import org.apache.commons.lang3.StringUtils;
 
 import com.github.abator.ConfigKeys;
-import com.github.abator.utils.Utils;
+import com.github.abator.utils.NameUtils;
 
 /**
  * 生成mybatis-3的mapper文件
@@ -55,7 +55,7 @@ public class MapperBuilder {
   public String buildDtd() {
     sb.append("<!DOCTYPE mapper PUBLIC \"-//mybatis.org//DTD Mapper 3.0//EN \"\n\"http://mybatis.org/dtd/mybatis-3-mapper.dtd\">");
     sb.append("\n");
-    sb.append("<!-- ").append(Utils.getSignature()).append(" -->\n");
+    sb.append("<!-- ").append(NameUtils.getSignature()).append(" -->\n");
     return sb.toString();
   }
 
@@ -77,14 +77,15 @@ public class MapperBuilder {
     sb.append(tab);
     sb.append("<resultMap  id=\"").append("ResultMap\"  type=\"").append(domain).append("\">\n");
     for (Column column : table.getColumns()) {
+
       if (JdbcType2JavaType.dataTypeMap.get(column.getDataType()).equals("byte[]")) {
         sb.append(tab).append(tab).append(tab).append("<result property=\"")
-            .append(Utils.getCamelName(column.getName())).append("\"  column= \"")
+            .append(NameUtils.getCamelName(column.getName())).append("\"  column= \"")
             .append(column.getName())
             .append("\" typeHandler=\"org.apache.ibatis.type.ByteArrayTypeHandler\"/>\n");
       } else {
         sb.append(tab).append(tab).append(tab).append("<result property=\"")
-            .append(Utils.getCamelName(column.getName())).append("\"  column= \"")
+            .append(NameUtils.getCamelName(column.getName())).append("\"  column= \"")
             .append(column.getName()).append("\"/>\n");
       }
     }
@@ -99,14 +100,14 @@ public class MapperBuilder {
     for (Column column : table.getColumns()) {
       if (JdbcType2JavaType.dataTypeMap.get(column.getDataType()).equals("int")) {
         sb.append(tab).append(tab).append(tab).append("<if test=\"")
-            .append(Utils.getCamelName(column.getName())).append("  != null  and  ")
-            .append(Utils.getCamelName(column.getName())).append(" != 0 \">\n");
+            .append(NameUtils.getCamelName(column.getName())).append("  != null  and  ")
+            .append(NameUtils.getCamelName(column.getName())).append(" != 0 \">\n");
       } else {
         sb.append(tab).append(tab).append(tab).append("<if test=\"")
-            .append(Utils.getCamelName(column.getName())).append(" != null\">\n");
+            .append(NameUtils.getCamelName(column.getName())).append(" != null\">\n");
       }
       sb.append(tab).append(tab).append(tab).append(tab).append("  and ").append(column.getName())
-          .append("=#{").append(Utils.getCamelName(column.getName())).append("}\n");
+          .append("=#{").append(NameUtils.getCamelName(column.getName())).append("}\n");
       sb.append(tab).append(tab).append(tab).append("</if>\n");
     }
     sb.append(tab).append(tab).append("</where>\n");
@@ -119,14 +120,14 @@ public class MapperBuilder {
         continue;
       if (JdbcType2JavaType.dataTypeMap.get(column.getDataType()).equals("int")) {
         sb.append(tab).append(tab).append(tab).append("<if test=\"")
-            .append(Utils.getCamelName(column.getName())).append("  != null  and  ")
-            .append(Utils.getCamelName(column.getName())).append(" != 0 \">\n");
+            .append(NameUtils.getCamelName(column.getName())).append("  != null  and  ")
+            .append(NameUtils.getCamelName(column.getName())).append(" != 0 \">\n");
       } else {
         sb.append(tab).append(tab).append(tab).append("<if test=\"")
-            .append(Utils.getCamelName(column.getName())).append(" != null\">\n");
+            .append(NameUtils.getCamelName(column.getName())).append(" != null\">\n");
       }
       sb.append(tab).append(tab).append(tab).append(tab).append("  ").append(column.getName())
-          .append("=#{").append(Utils.getCamelName(column.getName())).append("},\n");
+          .append("=#{").append(NameUtils.getCamelName(column.getName())).append("},\n");
       sb.append(tab).append(tab).append(tab).append("</if>\n");
     }
     sb.append(tab).append(tab).append("</set>\n");
@@ -168,7 +169,7 @@ public class MapperBuilder {
     tmp = "";
     for (Column column : table.getColumns()) {
       tmp = tmp + tab + tab;
-      tmp = tmp + tab + "#{" + Utils.getCamelName(column.getName()) + "},\n";
+      tmp = tmp + tab + "#{" + NameUtils.getCamelName(column.getName()) + "},\n";
     }
     tmp = tmp.substring(0, tmp.length() - 2);
     sb.append(tmp).append("\n");

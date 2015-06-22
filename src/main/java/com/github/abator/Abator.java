@@ -2,14 +2,18 @@ package com.github.abator;
 
 import java.io.IOException;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import com.github.abator.builder.*;
 import com.github.abator.utils.FileUtils;
 
 /**
  * @author xiebiao
  */
-public class Abator {
+public final class Abator {
 
+  private static final Logger logger = LoggerFactory.getLogger(Abator.class);
   private static Config CONFIG;
 
   static {
@@ -20,12 +24,12 @@ public class Abator {
     }
   }
 
-  public static void init() {
+  private void init() {
     FileUtils.delete(CONFIG.getOutput());
   }
 
-  public static void main(String[] args) {
-    Abator.init();
+  public void generate() {
+    this.init();
     MapperBuilder sqlMapperBuilder = new MapperBuilder(CONFIG);
     for (Table table : CONFIG.getTables()) {
       DomainClassBuilder domainClassBuilder = new DomainClassBuilder(table);
@@ -45,8 +49,7 @@ public class Abator {
         sqlMapperBuilder.setNamespace(namespace);
         sqlMapperBuilder.from(table).build();
       } catch (Exception e) {
-        e.printStackTrace();
-
+        logger.error("{}", e);
       }
     }
   }

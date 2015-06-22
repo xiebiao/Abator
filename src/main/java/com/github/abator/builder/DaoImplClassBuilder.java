@@ -6,7 +6,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 
 import com.github.abator.ConfigKeys;
-import com.github.abator.utils.Utils;
+import com.github.abator.utils.NameUtils;
 
 /**
  * 生成DAO默认实现
@@ -60,7 +60,7 @@ public class DaoImplClassBuilder extends DaoClassBuilder {
     sb.append("\n");
     String _extends = config.getProperty(ConfigKeys.DAO_IMPL_EXTENDS);
     String suffix = config.getProperty(ConfigKeys.DAO_IMPL_SUFFIX);
-    sb.append("public class " + Utils.getDomainName(this.name + suffix));
+    sb.append("public class " + NameUtils.getDomainName(this.name + suffix));
     sb.append(" extends " + _extends + " implements " + interfaces);
     sb.append(" {\n");
   }
@@ -68,7 +68,7 @@ public class DaoImplClassBuilder extends DaoClassBuilder {
   protected void buildAnnotate() {
     sb.append("\n");
     sb.append("/**\n");
-    sb.append(" *  " + Utils.getSignature() + " \n");
+    sb.append(" *  " + NameUtils.getSignature() + " \n");
     sb.append(" */");
     sb.append("\n");
   }
@@ -85,7 +85,7 @@ public class DaoImplClassBuilder extends DaoClassBuilder {
       this.checkDirectory(dirPath);
     }
     String modelClassName =
-        Utils.getDomainName(this.name) + this.config.getProperty(ConfigKeys.DAO_IMPL_SUFFIX);
+        NameUtils.getDomainName(this.name) + this.config.getProperty(ConfigKeys.DAO_IMPL_SUFFIX);
     String fileName =
         this.config.getOutput() + File.separator + dirPath + File.separator + modelClassName
             + JAVA_FILE_SUFFIX;

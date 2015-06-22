@@ -11,7 +11,8 @@ public class AbatorTest {
 
   @Test
   public void test() throws Exception {
-    Abator.main(new String[] {""});
+    Abator abator = new Abator();
+    abator.generate();
   }
 
 }
