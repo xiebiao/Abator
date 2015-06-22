@@ -157,7 +157,7 @@ public class DomainClassBuilder extends ClassBuilder {
           sb.append(" (Primary Key)");
         }
         sb.append(" */\n");
-        sb.append(tab + "protected " + getJavaDataType(c) + " " + name + ";\n");
+        sb.append(tab + "private " + getJavaDataType(c) + " " + name + ";\n");
         fields.add(name);
       }
     }

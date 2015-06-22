@@ -1,6 +1,6 @@
 package com.github.abator.database;
 
-public class Column {
+public class Column implements Comparable {
 
   public String getName() {
     return name;
@@ -90,4 +90,13 @@ public class Column {
   private String comment;
   private Long maxLength = 0L;
   private int precision;
+
+  @Override
+  public int compareTo(Object o) {
+    if (this.isPrimaryKey()) {
+      return -1;
+    }
+
+    return 1;
+  }
 }

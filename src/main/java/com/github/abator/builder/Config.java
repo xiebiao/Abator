@@ -13,6 +13,7 @@ import com.github.abator.ConfigKeys;
 import com.github.abator.DatabaseType;
 import com.github.abator.database.Column;
 import com.github.abator.database.Table;
+import com.google.common.collect.Sets;
 
 /**
  * @author xiebiao
@@ -179,13 +180,13 @@ public final class Config extends Properties {
 
   public Set<Column> getColumns(Table table) {
     Connection connection = this.getConnection();
-    Set<Column> columns = null;
+    TreeSet<Column> columns = Sets.newTreeSet();
     try {
       PreparedStatement preparedStatement = connection.prepareStatement(COLUMNS_SQL);
       preparedStatement.setString(1, this.getProperty(ConfigKeys.DB_NAME));
       preparedStatement.setString(2, table.getName());
       ResultSet rs = preparedStatement.executeQuery();
-      columns = new HashSet<Column>();
+
       boolean hasPriKey = false;
       while (rs.next()) {
         Column column = new Column(rs.getString("COLUMN_NAME").trim());
