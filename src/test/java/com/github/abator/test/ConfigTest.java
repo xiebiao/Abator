@@ -6,15 +6,15 @@ import com.github.abator.builder.Config;
 
 public class ConfigTest extends TestCase {
 
-    private Config config;
+  private Config config;
 
-    protected void setUp() throws Exception {
-        config = Config.getInstance();
-    }
+  protected void setUp() throws Exception {
+    config = Config.getInstance();
+  }
 
-    public void testGetTables() {
-        System.out.print(config.getTables().size());
+  public void testGetTables() {
+    System.out.print(config.getTables().size());
 
-        org.junit.Assert.assertNotNull(config.getTables());
-    }
+    org.junit.Assert.assertNotNull(config.getTables());
+  }
 }

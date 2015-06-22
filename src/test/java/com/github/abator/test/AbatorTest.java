@@ -9,8 +9,8 @@ import com.github.abator.Abator;
  */
 public class AbatorTest extends TestCase {
 
-    public void test() throws Exception {
-        Abator.main(new String[] { "" });
-    }
+  public void test() throws Exception {
+    Abator.main(new String[] {""});
+  }
 
 }

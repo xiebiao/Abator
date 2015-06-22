@@ -5,7 +5,7 @@ package com.github.abator.utils;
  */
 public class SQLReader {
 
-    String read(String filePath) {
-        return null;
-    }
+  String read(String filePath) {
+    return null;
+  }
 }

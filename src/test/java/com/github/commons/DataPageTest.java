@@ -11,18 +11,18 @@ import org.junit.Test;
  */
 public class DataPageTest extends TestCase {
 
-    @Before
-    public void setUp() {
+  @Before
+  public void setUp() {
 
-    }
+  }
 
-    @Test
-    public void test() {
-        DataPage<String> dataPage = new DataPage<String>(100, 1, 20);
+  @Test
+  public void test() {
+    DataPage<String> dataPage = new DataPage<String>(100, 1, 20);
 
-        int totalPage = dataPage.getTotalPage();
-        Assert.assertEquals(5, totalPage);
+    int totalPage = dataPage.getTotalPage();
+    Assert.assertEquals(5, totalPage);
 
-    }
+  }
 
 }

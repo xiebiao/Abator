@@ -5,6 +5,6 @@ package com.github.mybatis.domain;
  */
 public abstract class BaseDomain implements java.io.Serializable {
 
-    private static final long serialVersionUID = 1L;
+  private static final long serialVersionUID = 1L;
 
 }

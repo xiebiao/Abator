@@ -42,7 +42,7 @@
                              targetProject="${generated.source.dir}" type="MIXEDMAPPER">
             <property name="enableSubPackages" value="true"/>
         </javaClientGenerator>
-        <table tableName="user" domainObjectName="User" >
+        <table tableName="user" domainObjectName="User">
             <!-- schema="smsdev" table的熟属性(当数据库存在多个用户并且有相同的表面时，可能需要用到，内容为数据库的用户名) -->
             <!-- 去除一列，这样 PASSWORD这列就不会生成 <ignoreColumn column="PASSWORD"/> -->
             <!-- columnOverride 将数据库字段对应成javabean里面的字段 -->

@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN "
-"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.github.abator.dao.UserDao">
     <sql id="table_name">user</sql>
-    <resultMap  id="UserResultMap"  type="User">
-            <result property="id"  column= "id"/>
-            <result property="name"  column= "name"/>
+    <resultMap id="UserResultMap" type="User">
+        <result property="id" column="id"/>
+        <result property="name" column="name"/>
     </resultMap>
     <sql id="field_list">
         id,
@@ -14,67 +14,67 @@
     <sql id="condition">
         <where>
             <if test="id  != null  and  id != 0 ">
-                  and id=#{id}
+                and id=#{id}
             </if>
             <if test="name != null">
-                  and name=#{name}
+                and name=#{name}
             </if>
         </where>
     </sql>
     <select id="count" resultType="int" parameterType="User">
-        SELECT count(*) as value FROM 
-        <include refid="table_name" />
-        <include refid="condition" />
+        SELECT count(*) as value FROM
+        <include refid="table_name"/>
+        <include refid="condition"/>
     </select>
     <select id="find" parameterType="string" resultMap="UserResultMap">
-        SELECT * FROM 
-        <include refid="table_name" /> 
-        WHERE id = #{id} 
+        SELECT * FROM
+        <include refid="table_name"/>
+        WHERE id = #{id}
     </select>
-    <update id="update"> 
-    UPDATE 
-    <include refid="table_name" />
-            <set>
+    <update id="update">
+        UPDATE
+        <include refid="table_name"/>
+        <set>
             <if test="id  != null  and  id != 0 ">
-                  id=#{id},
+                id=#{id},
             </if>
             <if test="name != null">
-                  name=#{name},
+                name=#{name},
             </if>
-            </set>
-        WHERE id=#{id} 
-    </update> 
-    <delete id="delete"> 
-        DELETE FROM 
-        <include refid="table_name" />
-         WHERE id=#{id} 
-    </delete> 
-    <insert id="insert"> 
-        INSERT INTO 
-        <include refid="table_name" /> 
-        ( 
-            id,
-            name
-        ) 
-        VALUES 
-        ( 
-            #{id},
-            #{name}
-        ) 
-        </insert> 
-    <select id="list" parameterType="User" resultMap="UserResultMap"> 
-    SELECT * FROM 
-    <include refid="table_name" /> 
-    <include refid="condition" /> 
-    <if test="order != null"> 
-        order by ${order} 
-    </if> 
-    <if test="sort != null"> 
-        ${sort} 
-    </if> 
-    <if test="rows != 0"> 
-        LIMIT #{start},#{rows} 
-    </if> 
-    </select> 
-<!-- Generate by : http://github.com/xiebiao/Abator  -->
+        </set>
+        WHERE id=#{id}
+    </update>
+    <delete id="delete">
+        DELETE FROM
+        <include refid="table_name"/>
+        WHERE id=#{id}
+    </delete>
+    <insert id="insert">
+        INSERT INTO
+        <include refid="table_name"/>
+        (
+        id,
+        name
+        )
+        VALUES
+        (
+        #{id},
+        #{name}
+        )
+    </insert>
+    <select id="list" parameterType="User" resultMap="UserResultMap">
+        SELECT * FROM
+        <include refid="table_name"/>
+        <include refid="condition"/>
+        <if test="order != null">
+            order by ${order}
+        </if>
+        <if test="sort != null">
+            ${sort}
+        </if>
+        <if test="rows != 0">
+            LIMIT #{start},#{rows}
+        </if>
+    </select>
+    <!-- Generate by : http://github.com/xiebiao/Abator  -->
 </mapper>
