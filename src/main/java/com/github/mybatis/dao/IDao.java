@@ -21,9 +21,9 @@ public interface IDao {
 
   <T> T find(Object keyId) throws DataAccessException;
 
-  <E extends Query> List<E> listForObject(E domain) throws DataAccessException;
+  <E extends Query> List<E> listForObject(E query) throws DataAccessException;
 
-  <E extends Query> Integer countForObject(E domain) throws DataAccessException;
+  <E extends Query> Integer countForObject(E query) throws DataAccessException;
 
   <E> List<E> batchInsert(final List<E> list);
 

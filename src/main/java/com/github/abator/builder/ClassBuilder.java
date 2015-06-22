@@ -3,9 +3,8 @@ package com.github.abator.builder;
 import java.io.File;
 
 /**
- * 生成类
  * 
- * @author xiebiao[谢彪]
+ * @author xiebiao
  */
 public abstract class ClassBuilder {
 
