@@ -1,8 +1,6 @@
 package com.github.commons;
 
-import java.util.ArrayList;
 import java.util.LinkedHashSet;
-import java.util.List;
 import java.util.Map;
 
 /**
@@ -10,7 +8,7 @@ import java.util.Map;
  */
 public class BaseQuery implements Query {
 
-  private LinkedHashSet<FieldOrder> fieldOrders = new LinkedHashSet<FieldOrder>();
+  // private LinkedHashSet<FieldOrder> fieldOrders = new LinkedHashSet<FieldOrder>();
   private LinkedHashSet<OrderBy> orderByList;
   private Map<String, Object> parameters;
   private int pageSize;
@@ -64,14 +62,12 @@ public class BaseQuery implements Query {
 
   @Override
   public void setOrder(FieldOrder fieldOrder) {
-    fieldOrders.add(fieldOrder);
+    //
   }
 
   @Override
-  public List<FieldOrder> getOrders() {
-    List<FieldOrder> list = new ArrayList<FieldOrder>();
-    list.addAll(fieldOrders);
-    return list;
+  public LinkedHashSet<OrderBy> getOrders() {
+    return this.orderByList;
   }
 
   @Override

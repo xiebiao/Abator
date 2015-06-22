@@ -1,6 +1,6 @@
 package com.github.commons;
 
-import java.util.List;
+import java.util.LinkedHashSet;
 import java.util.Map;
 
 /**
@@ -64,8 +64,7 @@ public interface Query {
   @Deprecated
   void setOrder(FieldOrder fieldOrder);
 
-  @Deprecated
-  List<FieldOrder> getOrders();
+  LinkedHashSet<OrderBy> getOrders();
 
   Query addOrderBy(OrderBy orderBy);
 
