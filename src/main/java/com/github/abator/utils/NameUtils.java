@@ -12,31 +12,19 @@ public class NameUtils {
    * 首字母大写
    * </p>
    * 
-   * @param name
+   * @param input
    * @return Domain类名称
    */
-  public static String getDomainName(String name) throws Exception {
-    if (name.contains("-") && name.contains("_")) {
-      name.replaceAll("-", "_");
+  public static String getDomainName(String input) {
+    if (input.contains("-") && input.contains("_")) {
+      input.replaceAll("-", "_");
     }
-    String[] t = name.split("_");
+    String[] t = input.split("_");
     StringBuffer modelClassName = new StringBuffer();
     for (String s : t) {
       modelClassName.append(s.substring(0, 1).toUpperCase()).append(s.substring(1, s.length()));
     }
-    LOG.debug(name + " to " + modelClassName.toString());
     return modelClassName.toString();
-  }
-
-  public static String getCamelName(String name) throws Exception {
-    name = getDomainName(name);
-    name = name.substring(0, 1).toLowerCase() + name.substring(1, name.length());
-    return name;
-  }
-
-  public static void main(String[] args) throws Exception {
-    System.out.println(NameUtils.getDomainName("aaaBaaa"));
-    System.out.println(NameUtils.getDomainName("aa_a"));
   }
 
   public static String getSignature() {
