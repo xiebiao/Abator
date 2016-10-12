@@ -26,7 +26,7 @@
         <setting name="defaultStatementTimeout" value="25000"/>
     </settings>
     <typeAliases>
-        <typeAlias alias="User" type="com.github.abator.domain.UserDomain"/>
+        <typeAlias alias="User" type="com.github.xiebiao.abator.domain.UserDomain"/>
     </typeAliases>
 
     <environments default="development">

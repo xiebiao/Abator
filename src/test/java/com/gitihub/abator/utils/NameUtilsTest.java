@@ -4,7 +4,7 @@ import junit.framework.Assert;
 
 import org.junit.Test;
 
-import com.github.abator.utils.NameUtils;
+import com.github.xiebiao.abator.utils.NameUtils;
 
 /**
  * @author <a href="mailto:joyrap@qq.com">joyrap@qq.com</a>
