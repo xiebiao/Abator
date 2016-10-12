@@ -12,7 +12,7 @@
         <mybatis_version>3.2.2</mybatis_version>
         <mybatis_spring_version>1.0.2</mybatis_spring_version>
         <hsqldb_version>2.3.1</hsqldb_version>
-        <mybatis_generator_version>1.3.3-SNAPSHOT</mybatis_generator_version>
+        <mybatis_generator_version>1.3.5</mybatis_generator_version>
         <ant_version>1.9.2</ant_version>
         <junit_version>4.11</junit_version>
         <mysql_connector_version>5.1.12</mysql_connector_version>
